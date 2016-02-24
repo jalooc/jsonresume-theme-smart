@@ -1,0 +1,31 @@
+{
+  "name": "jsonresume-theme-smart",
+  "version": "1.0.0",
+  "description": "Print-friendly & UX-friendly, customizable JSON Resume theme.",
+  "keywords": [
+    "JSON Resume",
+    "resume",
+    "theme"
+  ],
+  "author": "Piotr Dżaluk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jalooc/jsonresume-theme-smart"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "gulp serve"
+  },
+  "dependencies": {
+    "nunjucks": "^2.3.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-nunjucks": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "nunjucks": "^2.3.0",
+    "resume-schema": "0.0.16"
+  }
+}

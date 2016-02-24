@@ -1,0 +1,29 @@
+@import "./html5reset-1.6.1";
+@import "modules/colors";
+@import "modules/measurements";
+
+body {
+  font-family: arial;
+  font-size: 10.5pt;
+  padding: 2em 1em;
+  text-align: center;
+}
+
+small {
+  color: $lightGrey;
+  font-size: .8em;
+}
+
+h1 {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@import "partials/outline";
+@import "partials/header";
+@import "partials/contact_data";
+@import "partials/footer";

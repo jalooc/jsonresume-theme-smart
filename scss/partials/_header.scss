@@ -1,0 +1,60 @@
+/* Header ------------------------------------------------------------*/
+header {
+  display: flex;
+  text-align: center;
+  margin-top: 2em;
+  justify-content: center;
+  align-items: center;
+
+  dt {
+    display: none;
+  }
+
+  dl {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  dd {
+    display: inline-block;
+    text-align: left;
+  }
+
+  .name {
+    font-size: 2.8em;
+    font-family: "Trebuchet";
+    color: $bulletBlue;
+    text-transform: uppercase;
+  }
+
+  .name span:first-letter {
+    font-size: larger;
+  }
+
+  .description dd {
+    font-style: italic;
+    max-width: 400px;
+    font-size: .9em;
+    color: $lightGrey;
+  }
+
+  dd span {
+    display: block;
+  }
+
+  dl:nth-of-type(1) {
+    border-right: 2px solid $darkGrey;
+    padding-right: 10px;
+    text-align: right;
+    width: 40%;
+  }
+
+  dl:nth-of-type(2) {
+    width: calc(60% - 2px - 10px - 5px - #{$pagePhantomMargin});
+    padding-left: 5px;
+  }
+
+}
+
+/* End of Header ------------------------------------------------------------*/

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<style type="text/css">
+			{{ css|safe }}
+		</style>
+		<style type="text/css" media="print">
+			{{ cssPrint|safe }}
+		</style>
+		<title>{{ resume.basics.name }} (CV)</title>
+	</head>
+
+	<body itemscope itemtype="http://schema.org/Person">
+
+        <header>
+
+            <h1>Curriculum Vitae</h1>
+
+            <dl class="name">
+                <dt>Name</dt>
+                <dd>
+                    <span itemprop="givenName">{{ resume.basics.name|extractWords(0) }}</span>
+                    <span itemprop="familyName">{{ resume.basics.name|extractWords(1) }}</span>
+                </dd>
+            </dl>
+            <dl class="description">
+                <dt>Description</dt>
+                <dd itemprop="description">
+                    {{ resume.basics.summary }}
+                </dd>
+            </dl>
+
+        </header>
+
+        <section class="contact_data">
+
+            <h1>Contact data</h1>
+
+            <dl>
+                <dt>Phone number</dt>
+                <dd itemprop="telephone">
+                    <span class="icon">&#9742;</span>
+                    <a href="tel:{{ resume.basics.phone }}">{{ resume.basics.phone }}</a>
+                </dd>
+
+                <dt>E-mail address</dt>
+                <dd itemprop="email">
+                    <span class="icon">&#9993;</span>
+                    <a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>
+                </dd>
+
+                <dt>Home address</dt>
+                <dd itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                    <span class="icon">&#127968;</span>
+                    <span itemprop="streetAddress">{{ resume.basics.location.address }}</span>
+                    <br>
+                    <span itemprop="postalCode">{{ resume.basics.location.postalCode }}</span>
+                    <span itemprop="addressLocality">{{ resume.basics.location.city }}</span>
+                </dd>
+            </dl>
+        </section>
+
+        <div class="roll-out"></div>
+
+        <div class="outline">
+            <section class="left">
+
+                <h1>Outline</h1>
+
+                <article id="skills">
+                    <h2>Skills</h2>
+                    <ul>
+
+                        {%  for skill in resume.skills %}
+                            <li {{ 'class=limited' if limits.skills and loop.index0 >= limits.skills else '' }}>
+                                {% if skill.level|skillRange %}
+                                    {% for rate in range(0, skill.level|skillRange - skill.level|skillLevel) %}<span class="rate void"></span>{%  endfor %}{% for rate in range(0, skill.level|skillLevel) %}<span class="rate full"></span>{%  endfor %}
+                                {% else %}
+                                    {{ skill.level }}
+                                {% endif %}
+                                <span class="skill-level">{{ skill.name }}
+                                    {%  if skill.keywords %}
+                                        <small>({% for keyword in skill.keywords %}{{ keyword }}{{  '' if loop.last else ', ' }}{% endfor %})</small>
+                                    {% endif %}
+                                </span>
+                            </li>
+                        {%  endfor %}
+                    </ul>
+                    {{ '<span class="ellipsis">...</span>'|safe if resume.skills|length > limits.skills else '' }}
+
+                </article>
+
+                <article id="awards">
+                    <h2>Awards</h2>
+
+                    {%  for award in resume.awards %}
+                    <dl {{ 'class=limited' if limits.awards and loop.index0 >= limits.awards else '' }}>
+                        <span class="date_range">{{ award.date|humanizeDateMonth }}</span>
+                        <dt>{{ award.title }}</dt>
+                        <dd>{{ award.summary }}</dd>
+                    </dl>
+                    {%  endfor %}
+                    {{ '<span class="ellipsis">...</span>'|safe if resume.awards|length > limits.awards else '' }}
+
+                </article>
+
+                <article id="certificates">
+                    <h2>Certificates</h2>
+
+                    {% for cert in resume.certifications %}
+                        <dl {{ 'class=limited' if limits.certifications and loop.index0 >= limits.certifications else '' }}>
+                            <span class="date_range">{{ cert.date|humanizeDateMonth }}</span>
+                            <dt>{{ cert.title }}</dt>
+                            <dd>{{ cert.summary }}</dd>
+                        </dl>
+                    {%  endfor %}
+                    {{ '<span class="ellipsis">...</span>'|safe if resume.certifications|length > limits.certifications else '' }}
+
+                </article>
+
+                <article id="languages">
+                    <h2>Languages</h2>
+
+                    <dl>
+
+                    {% for language in resume.languages %}
+                        <dt {{ 'class=limited' if limits.languages and loop.index0 >= limits.languages else '' }}>{{ language.language }}</dt>
+                        <dd {{ 'class=limited' if limits.languages and loop.index0 >= limits.languages else '' }}>{{ language.fluency }}</dd>
+                    {%  endfor %}
+                    {{ '<span class="ellipsis">...</span>'|safe if resume.languages|length > limits.languages else '' }}
+
+                    </dl>
+                </article>
+
+                <article id="hobbies">
+                    <h2>Hobbies</h2>
+                    <ul>
+
+                        {%  for interest in resume.interests %}
+                            <li {{ 'class=limited' if limits.interests and loop.index0 >= limits.interests else '' }} data-importance="{{ interest.affection }}">{{ interest.name }}</li>
+                        {%  endfor %}
+                        {{ '<span class="ellipsis">...</span>'|safe if resume.hobbies|length > limits.hobbies else '' }}
+
+                    </ul>
+                </article>
+            </section>
+
+            <section class="right">
+
+                <article id="person">
+                    <h2>Photo</h2>
+                    <!--
+                    TODO: Jeśli będzie koniecznym, to wstawić w print media zdjęcie o większej rozdzielczości
+                    -->
+                    <div>
+                        <div id="photo" itemprop="image"><img src="{{ resume.basics.picture }}"></div>
+                        <span itemprop="birthDate">{{ resume.basics.birthDate }}</span>
+                    </div>
+                </article>
+
+                <article id="work_experience">
+                    <h2>Work experience</h2>
+                    <dl class="lineList">
+
+                        {%  for job in resume.work %}
+                            <span {{ 'class=limited' if limits.work and loop.index0 >= limits.work else '' }} class="date_range">{{ job.startDate|humanizeDateMonth }} - {{ job.endDate|humanizeDateMonth|default('present', true) }}</span>
+                            <dt {{ 'class=limited' if limits.work and loop.index0 >= limits.work else '' }} itemprop="jobTitle">{{ job.position }}</dt>
+                            <dd {{ 'class=limited' if limits.work and loop.index0 >= limits.work else '' }} class="workplace" itemprop="affilation worksFor">{{ job.company }}</dd>
+                            <dd {{ 'class=limited' if limits.work and loop.index0 >= limits.work else '' }}>{{ job.summary }}</dd>
+                        {%  endfor %}
+                        {{ '<span class="ellipsis">...</span>'|safe if resume.work|length > limits.work else '' }}
+
+                    </dl>
+                </article>
+
+                <article id="education">
+                    <h2>Education</h2>
+                    <dl class="lineList">
+
+                        {% for education in resume.education %}
+                            <span {{ 'class=limited' if limits.education and loop.index0 >= limits.education else '' }} class="date_range">{{ education.startDate|humanizeDateMonth(true) }}-{{ education.endDate|humanizeDateMonth(true)|default('present', true) }}</span>
+                            <dt {{ 'class=limited' if limits.education and loop.index0 >= limits.education else '' }} itemprop="affilation">{{ education.institution }}</dt>
+                            <dd {{ 'class=limited' if limits.education and loop.index0 >= limits.education else '' }} class="faculty">{{ education.area }}</dd>
+                            <dd {{ 'class=limited' if limits.education and loop.index0 >= limits.education else '' }}>{{ education.studyType }}</dd>
+                        {% endfor %}
+                        {{ '<span class="ellipsis">...</span>'|safe if resume.educations|length > limits.education else '' }}
+
+                    </dl>
+                </article>
+            </section>
+        </div>
+
+        <footer class="legal">
+            {{ legalNote }}
+        </footer>
+
+	</body>
+</html>

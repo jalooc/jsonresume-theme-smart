@@ -1,0 +1,15 @@
+body {
+  width: 21cm; /*Makes it print correctly on A4*/
+}
+
+footer {
+  //page-break-after: always;
+}
+
+.ellipsis {
+  display: none !important;
+}
+
+.roll-out {
+  display: none !important;
+}
