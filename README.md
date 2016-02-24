@@ -44,6 +44,7 @@ _(*) Only for local development_
 
   * [ ] Support for all the rest of the _Resume Schema_'s properties
   * [ ] Switching to RWD
+  * [ ] Hide the photo if no path is supplied
   * [ ] Hide properties limited to 0 elements
   * [ ] Show all items with limit set to 0
   * [ ] Handle edge cases for undefined properties

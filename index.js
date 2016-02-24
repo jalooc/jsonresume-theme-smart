@@ -1,4 +1,5 @@
 var fs = require('fs')
+var path = require('path')
 var nunjucks = require('nunjucks')
 var env = nunjucks.configure()
 var filters = require('./nunjucksFilters.js')
@@ -12,10 +13,10 @@ env.addFilter('humanizeDateMonth', filters.humanizeDateMonth)
 
 function render(resume) {
 
-  var css = fs.readFileSync(__dirname + '/css/css.css', 'utf-8')
-  var cssPrint = fs.readFileSync(__dirname + '/css/print.css', 'utf-8')
+  var css = fs.readFileSync(path.join(__dirname, './css/css.css'), 'utf-8')
+  var cssPrint = fs.readFileSync(path.join(__dirname, './css/print.css'), 'utf-8')
 
-  return env.render('./index.nunjucks', {
+  return env.render(path.join(__dirname, './index.nunjucks'), {
     css: css,
     cssPrint: cssPrint,
     resume: resume,
