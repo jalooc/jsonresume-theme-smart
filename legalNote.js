@@ -1,1 +1,1 @@
-module.exports = 'Legal note goes here.'
+module.exports = null

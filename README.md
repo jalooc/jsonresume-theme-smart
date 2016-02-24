@@ -14,7 +14,7 @@ Printed CVs are often advised to **fit in one A4 page**. On the other hand, this
 2. Since this is a [JSON Resume](http://jsonresume.org/) theme, proceed according to their's instructions:
     1. In the main directory, create a JSON file with you resume data in accordance with the [_resume schema_](https://github.com/jsonresume/resume-schema/blob/master/schema.json). You can also add a `photo.jpg`.
     2. Install the _JSON Resume_ tool by running `npm install -g resume-cli`.
-    3. Run `resume serve` to see the output in a browser or `resume export resume.html` / `resume export resume.pdf` to generate the resume document. You can also publish your resume by following the instructions on the [official website](http://jsonresume.org/getting-started/).
+    3. Run `resume serve` to see the output in a browser or `resume export resume.html --theme smart` / `resume export resume.pdf --theme smart` to generate the resume document. You can also publish your resume by following the instructions on the [official website](http://jsonresume.org/getting-started/).
 
 ## Development
 
@@ -34,9 +34,11 @@ To start developing, follow the instructions:
 ## Additional features
 
 The **theme** provides some nifty, additional features, some of them going beyond the _JSON Resume Schema_:
-  * Ability to define maximum visible elements (revealed after mouse hover) using the [resumeLimit.js](./resumeLimits.js) config file. The limits are applied only to the _root_, _array_ properties of the _resume_ JSON;
-  * Ability to define the legal note at the bottom of the CV (often required by recruiters) inside the [legalNote.js](./legalNote.js) file;
+  * (*) Ability to define maximum visible elements (revealed after mouse hover) using the [resumeLimit.js](./resumeLimits.js) config file. The limits are applied only to the _root_, _array_ properties of the _resume_ JSON;
+  * (*) Ability to define the legal note at the bottom of the CV (often required by recruiters) inside the [legalNote.js](./legalNote.js) file;
   * Handling of the (excessive to the _JSON Resume Schema_) _certifications_ field.
+
+_(*) Only for local development_
 
 ## TODOs
 
